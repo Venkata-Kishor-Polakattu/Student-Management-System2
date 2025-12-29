@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>View Student</title>
+</head>
+<body style="text-align: center">
+<h1>Student Details</h1>
+
+<div>
+    <strong>ID:</strong> <span th:text="${student.id}"></span><br/>
+    <strong>Name:</strong> <span th:text="${student.firstName} + ' ' + ${student.lastName}"></span><br/>
+    <strong>Email:</strong> <span th:text="${student.email}"></span><br/>
+    <strong>DOB:</strong> <span th:text="${student.dateOfBirth}"></span><br/>
+    <strong>Grade:</strong> <span th:text="${student.grade}"></span><br/>
+    <strong>Created:</strong> <span th:text="${student.createdAt}"></span><br/>
+    <strong>Updated:</strong> <span th:text="${student.updatedAt}"></span><br/>
+</div>
+
+<p>
+    <a th:href="@{/students}">Back to list</a> |
+    <a th:href="@{|/students/edit/${student.id}|}">Edit</a>
+</p>
+</body>
+</html>

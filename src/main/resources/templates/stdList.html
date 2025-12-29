@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Students</title>
+    <link rel="stylesheet" th:href="@{style.css}" />
+</head>
+<body style="text-align: center">
+<h1>Students</h1>
+
+<p><a th:href="@{/students/new}">Create new student</a></p>
+
+<table border="1" cellpadding="6" cellspacing="0" style="margin-left: auto;margin-right: auto">
+    <thead>
+    <tr>
+        <th>ID</th><th>First name</th><th>Last name</th><th>Email</th><th>DOB</th><th>Grade</th><th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="student : ${students}">
+        <td th:text="${student.id}">1</td>
+        <td th:text="${student.firstName}">First</td>
+        <td th:text="${student.lastName}">Last</td>
+        <td th:text="${student.email}">email@example.com</td>
+        <td th:text="${student.dateOfBirth}">2000-01-01</td>
+        <td th:text="${student.grade}">10</td>
+        <td>
+            <a th:href="@{|/students/view/${student.id}|}">View</a> |
+            <a th:href="@{|/students/edit/${student.id}|}">Edit</a> |
+            <form th:action="@{|/students/delete/${student.id}|}" method="post" style="display:inline">
+                <button type="submit" onclick="return confirm('Delete student?')">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <script type="text/javascript" th:src="@{script.js}"></script>
+    <title th:text="${student.id} != null ? 'Edit com.nk.studentmanagementsystem.beans.Student' : 'New com.nk.studentmanagementsystem.beans.Student'">com.nk.studentmanagementsystem.beans.Student Form</title>
+</head>
+<body style="text-align: center">
+<h1 th:text="${student.id} != null ? 'Edit com.nk.studentmanagementsystem.beans.Student' : 'New com.nk.studentmanagementsystem.beans.Student'">com.nk.studentmanagementsystem.beans.Student Form</h1>
+
+<div th:if="${error}">
+    <p style="color:red" th:text="${error}"></p>
+</div>
+
+<form th:action="@{/students/save}" method="post" th:object="${student}" onsubmit="return validateForm()">
+    <input type="hidden" th:field="*{id}" />
+    <div>
+        <label>First name:</label>
+        <input type="text" th:field="*{firstName}" required />
+    </div>
+    <div>
+        <label>Last name:</label>
+        <input type="text" th:field="*{lastName}" required />
+    </div>
+    <div>
+        <label>Email:</label>
+        <input type="email" th:field="*{email}" required />
+    </div>
+    <div>
+        <label>Date of Birth:</label>
+        <input type="date" th:field="*{dateOfBirth}" />
+    </div>
+    <div>
+        <label>Grade:</label>
+        <input type="text" th:field="*{grade}" />
+    </div>
+    <div>
+        <button type="submit">Save</button>
+        <a th:href="@{/students}">Cancel</a>
+    </div>
+</form>
+</body>
+</html>
