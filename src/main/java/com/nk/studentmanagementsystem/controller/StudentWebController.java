@@ -4,8 +4,9 @@ import com.nk.studentmanagementsystem.beans.Student;
 import com.nk.studentmanagementsystem.service.StudentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 @Controller
 @RequestMapping("/students")
@@ -20,7 +21,7 @@ public class StudentWebController {
     @GetMapping
     public String listPage(Model model) {
         model.addAttribute("students", service.listAll());
-        return "students/list";
+        return "stdList";
     }
 
     @GetMapping("/view/{id}")
@@ -30,31 +31,32 @@ public class StudentWebController {
             return "redirect:/students";
         }
         model.addAttribute("student", s);
-        return "students/view";
+        return "view";
     }
 
     @GetMapping("/new")
     public String createForm(Model model) {
         model.addAttribute("student", new Student());
-        return "StudentForm";
+        return "studentForm";
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute Student student, BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("error", bindingResult.getFieldError().getDefaultMessage());
-            return "Error";
-        }
+    public String save(@ModelAttribute Student student,
+                       RedirectAttributes redirectAttributes){
         try {
-            if (student.getId() == null) {
-                service.create(student);
-            } else {
-                service.update(student.getId(), student);
-            }
+            service.create(student);
+
+            redirectAttributes.addFlashAttribute(
+                    "msg",
+                    "Student added successfully"
+            );
+
             return "redirect:/students";
-        } catch (IllegalArgumentException e) {
-            model.addAttribute("error", e.getMessage());
-            return "Error";
+        }catch(Exception e) {
+            redirectAttributes.addFlashAttribute(
+                    "error",
+                    e.getMessage());
+            return "redirect:/students";
         }
     }
 
@@ -63,13 +65,19 @@ public class StudentWebController {
         var s = service.findById(id).orElse(null);
         if (s == null) {
             return "redirect:/students";
+        }else {
+            service.update(id, s);
+            model.addAttribute("msg", "Student updated successfully");
+            return "success";
         }
-        model.addAttribute("student", s);
-        return "students/form";
     }
 
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
+        var s = service.findById(id).orElse(null);
+        if (s == null) {
+            return "redirect:/students";
+        }
         service.delete(id);
         return "redirect:/students";
     }
