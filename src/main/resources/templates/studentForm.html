@@ -6,7 +6,7 @@
     <title th:text="${student.id} != null ? 'Edit com.nk.studentmanagementsystem.beans.Student' : 'New com.nk.studentmanagementsystem.beans.Student'">Student Form</title>
 </head>
 <body style="text-align: center">
-<h1 th:text="${student.id} != null ? 'Edit com.nk.studentmanagementsystem.beans.Student' : 'New com.nk.studentmanagementsystem.beans.Student'">Student Form</h1>
+<h1>Student Form</h1>
 
 <div th:if="${error}">
     <p style="color:red" th:text="${error}"></p>

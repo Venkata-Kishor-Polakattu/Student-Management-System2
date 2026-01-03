@@ -1,26 +1,27 @@
 function validateForm() {
-    let sid = document.forms["regForm"]["sid"].value;
-    let sname=document.forms["regForm"]["sname"].value;
-    let sphone=document.forms["regForm"]["sphone"].value;
-    let saddr=document.forms["regForm"]["saddr"].value;
+    let firstName=document.forms["regForm"]["firstName"].value;
+    let lastName=document.forms["regForm"]["lastName"].value;
+    let dateOfBirth=document.forms["regForm"]["dateOfBirth"].value;
 
-    if (sid==0){
+    let grade=document.forms["regForm"]["grade"].value;
+
+    if (sid===0){
         alert("Student Id is required");
         return false;
     }
 
-    if (sname===""){
-        alert("Student name is required");
+    if (firstName===" "){
+        alert("First name is required");
         return false;
     }
 
-    if (sphone===""){
-        alert("Phone number is required");
+    if (lastName===" "){
+        alert("Last name is required");
         return false;
     }
 
-    if (saddr===""){
-        alert("City or Village is required");
+    if (grade<5){
+        alert("Grade must be grater than 5");
         return false;
     }
 }

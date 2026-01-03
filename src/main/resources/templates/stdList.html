@@ -17,6 +17,9 @@
     </tr>
     </thead>
     <tbody>
+    <div th:if="${msg}" style="color: green;">
+        <p th:text="${msg}"></p>
+    </div>
     <tr th:each="student : ${students}">
         <td th:text="${student.id}">1</td>
         <td th:text="${student.firstName}">First</td>
