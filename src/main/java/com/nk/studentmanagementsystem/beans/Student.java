@@ -48,8 +48,7 @@ public class Student {
         updatedAt = LocalDateTime.now();
     }
 
-    // Standard getters and setters omitted for brevity in this snippet.
-    // Include all getters and setters in your files below.
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getFirstName() { return firstName; }
