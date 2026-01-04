@@ -11,4 +11,5 @@ public interface StudentService {
     public Student create(Student student);
     public Student update(Long id, Student updated);
     public void delete(Long id);
+    public Student findByEmail(String email);
 }

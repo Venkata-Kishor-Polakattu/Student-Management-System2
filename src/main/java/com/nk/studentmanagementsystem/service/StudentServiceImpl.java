@@ -1,6 +1,7 @@
 package com.nk.studentmanagementsystem.service;
 
 import com.nk.studentmanagementsystem.beans.Student;
+import com.nk.studentmanagementsystem.exception.EmailExists;
 import com.nk.studentmanagementsystem.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,9 +32,9 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Student create(Student student) {
         // basic uniqueness check for email; let DB also enforce unique constraint
-        /*repo.findByEmail(student.getEmail()).ifPresent(s -> {
-            throw new IllegalArgumentException("Email already exists: " + student.getEmail());
-        });*/
+        repo.findByEmail(student.getEmail()).ifPresent(s -> {
+            throw new EmailExists("Email already exists: " + student.getEmail());
+        });
         return repo.save(student);
     }
 
@@ -52,5 +53,9 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void delete(Long id) {
         repo.deleteById(id);
+    }
+
+    public Student findByEmail(String email) {
+        return repo.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("Student not found: " + email));
     }
 }
