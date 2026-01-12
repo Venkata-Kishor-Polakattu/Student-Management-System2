@@ -33,7 +33,7 @@ public class StudentServiceImpl implements StudentService {
     public Student create(Student student) {
         // basic uniqueness check for email; let DB also enforce unique constraint
         repo.findByEmail(student.getEmail()).ifPresent(s -> {
-            throw new EmailExists("Email already exists: " + student.getEmail());
+            throw new EmailExists( student.getEmail()+"Email already exists: " );
         });
         return repo.save(student);
     }
